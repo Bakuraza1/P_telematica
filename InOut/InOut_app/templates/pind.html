@@ -1,0 +1,38 @@
+{% extends "Main.html" %}
+{% load static %}
+
+    {% block content %}
+    <div>
+        <header>
+            <h1 id="TituloSeccion">Producto</h1>
+        </header>
+        <div id="pind_global">
+            <div id="pind">
+                <img id="ind-img"src="{{MEDIA_URL}}{{producto.Imagen}}">
+                <div id="pind2">
+                    <h2 id="Pro-Title">{{producto.Nombre}}</h2>
+                    <hr id ="hrr2"/>
+                    <h3 class="indh">Cantidad: {{producto.Cantidad}}</h3>
+                    <h3 class="indh">Precio: {{producto.Precio}}</h3>
+                </div>
+            </div>
+        </div>
+        <div id="comentarios">
+            <form id="c_form" method="post">      
+                {% csrf_token %}
+                <textarea id="coment" rows="5" cols="180" name="coment" placeholder="Ingresa tu comentario!"></textarea><br>
+                <button type="submit" class="send2">Comentar</button>
+            </form>
+            {% for comentario in comentarios %}
+                    
+            <div class="coment-item">
+                <h3 class="comentari_tittle">{{comentario.0}}</h3>
+                <br />
+                <p class="comentari_text">{{comentario.1}}</p>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+
+    {% endblock %}

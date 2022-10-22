@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/eea4a3a7bd.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Oswald:wght@300&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+        <title>InOut</title>
+    </head>
+    
+    <body style="background-image:url({% static 'images/back1.png' %});">
+        <header>
+            <a href="{% url 'Welcome' %}"><h1>InOut</h1></a>
+        </header>
+
+        <div class="agregar">
+            <h3 class="add_title">Iniciar Sesión</h3>
+            <form method="post">      
+                {% csrf_token %}
+                <input type="text" name="usuario" placeholder="Usuario" required></input><br>
+                <input type="password" name="clave" placeholder="Contraseña" required></input><br>
+                <button type="submit">Ingresar</button>
+
+            </form>
+            <div id="container">
+                <a href="{% url 'Registro' %}"><button id="registro">Registrate</button></a>
+            </div>
+            {% for message in messages %}
+            <p style="color:red; text-align: center; margin-top: 20px;">{{message}} </p>
+            {% endfor %}
+        </div>
+    </body>
+</html>
