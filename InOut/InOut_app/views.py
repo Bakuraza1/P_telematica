@@ -65,7 +65,7 @@ def pind(request, id_obj):
         return redirect('Welcome')
     p = Producto.objects.filter(id=id_obj)
     current_product = (p[0])
-    comentarios =  list(Comentario.objects.all())
+    comentarios =  list(Comentario.objects.filter(Producto_id=current_product.id))
     names = []
     for i in comentarios:
         names.append([((models.Usuario.objects.get(id= i.Usuario_id)).Usuario),i.Comentario])
@@ -80,7 +80,7 @@ def Ingreso(request):
     global login_check
     global current_user
     if login_check==True:
-        return redirect('Productos')
+        return redirect('productos')
 
     if request.method == "POST":
         
@@ -96,48 +96,48 @@ def Ingreso(request):
         except models.Usuario.DoesNotExist as e:
             messages.info(request, "Correo y/o contraseña incorrectos")
 
-    return render(request, "Ingreso.html")
+    return render(request, "ingreso.html")
 
 
 def Home(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     productos =  Producto.objects
-    return render(request, "Home.html", {"productos":productos})
+    return render(request, "home.html", {"productos":productos})
 
 
 def Usuario(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
-    return render(request, "Usuario.html")
+        return redirect('welcome')
+    return render(request, "usuario.html")
 
 
 def Productos(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     productos =  Producto.objects
-    return render(request, "Productos.html", {"productos":productos})
+    return render(request, "productos.html", {"productos":productos})
 
 
 def Opciones(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
-    return render(request, "Opciones.html")
+        return redirect('welcome')
+    return render(request, "opciones.html")
 
 def Main(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
-    return render(request, "Main.html")
+        return redirect('welcome')
+    return render(request, "main.html")
 
 
 def Welcome(request):
 
-    return render(request, "Welcome.html")
+    return render(request, "welcome.html")
 
 
 def get_data(request):
@@ -150,21 +150,21 @@ def get_data(request):
 def registroProducto(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     form=productoForm()
     context={'form':form}
     if request.method == 'POST':
         form=productoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('Productos')
+            return redirect('productos')
     return render(request, 'agregar.html', context)
 
 
 def EliminarItem(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     form=Deleteform()
     context={'form':form}
     if request.method == 'POST':
@@ -178,7 +178,7 @@ def EliminarItem(request):
 def modificar(request):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     form=Deleteform()
     context={'form':form}
     if request.method == 'POST':
@@ -192,7 +192,7 @@ def modificar(request):
 def actualizar(request, nombre):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     try:
         productoactualizar = Producto.objects.get(Nombre=nombre)
     except:
@@ -201,7 +201,7 @@ def actualizar(request, nombre):
         nombre = request.POST["producto"]
         cantidad = request.POST["cantidad"]
         actualizarProducto(nombre,cantidad)
-        return redirect('Productos')
+        return redirect('productos')
     context={'item':productoactualizar}
     return render(request, 'actualizar.html', context)
 
@@ -210,14 +210,14 @@ def actualizar(request, nombre):
 def eliminacionProducto(request, nombre):
     global login_check
     if login_check==False:
-        return redirect('Welcome')
+        return redirect('welcome')
     try:
         productoBorrar=Producto.objects.get(Nombre=nombre)
     except:
         return redirect('eliminar')
     if request.method == "POST":
         productoBorrar.delete()
-        return redirect('Productos')
+        return redirect('productos')
     context={'item':productoBorrar}
     return render(request, 'borrar.html', context)
 
@@ -225,5 +225,5 @@ def eliminacionProducto(request, nombre):
 def logOut_request(request):
     global login_check
     login_check = False
-    return redirect("Welcome")
+    return redirect("welcome")
 
