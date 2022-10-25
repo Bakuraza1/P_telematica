@@ -91,7 +91,7 @@ def Ingreso(request):
             informacion = models.Usuario.objects.get(Usuario= usuario, Password=clave)
             current_user = informacion
             login_check = True
-            return redirect('Productos')
+            return redirect('productos')
 
         except models.Usuario.DoesNotExist as e:
             messages.info(request, "Correo y/o contraseña incorrectos")

@@ -14,7 +14,7 @@
         <form action="{% url 'borrar' item.Nombre %}" method="POST">
             {% csrf_token %}
             <div class="Art-opc1">
-                <a id="cancelar" href="{% url 'Productos'%}"><button> Cancelar</button></a>
+                <a id="cancelar" href="{% url 'productos'%}"><button> Cancelar</button></a>
                 <input type="submit" name="confirmar">
             </div>
         </form>

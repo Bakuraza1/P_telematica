@@ -16,7 +16,7 @@
     
     <body style="background-image:url({% static 'images/back1.png' %});">
         <header>
-            <a href="{% url 'Welcome' %}"><h1>InOut</h1></a>
+            <a href="{% url 'welcome' %}"><h1>InOut</h1></a>
         </header>
 
         <div class="agregar">
@@ -29,7 +29,7 @@
 
             </form>
             <div id="container">
-                <a href="{% url 'Registro' %}"><button id="registro">Registrate</button></a>
+                <a href="{% url 'registro' %}"><button id="registro">Registrate</button></a>
             </div>
             {% for message in messages %}
             <p style="color:red; text-align: center; margin-top: 20px;">{{message}} </p>
